@@ -5,12 +5,6 @@
 
 import java.io.IOException;
 
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import java.util.List;
-
 /*
 
     В текстовом файле inp.txt хранится текст, состоящий из русских букв,
@@ -23,62 +17,20 @@ import java.util.List;
 
 */
 
-
-
 public class Main {
-
-    private List<String> file; // Наш файл с екстом
 
     public static void main (String[] args) throws IOException {
 
         // Todo - Работа с консолью на прием данных
 
-        Crypt ("C:\\Users\\AlNat\\Source\\Studi\\inp.txt","C:\\Users\\AlNat\\Source\\Studi\\out1.txt");
+        RW rw = new RW();
 
-        Decrypt("C:\\Users\\AlNat\\Source\\Studi\\out1.txt","C:\\Users\\AlNat\\Source\\Studi\\out2.txt");
+        rw.Crypt ("C:\\Users\\AlNat\\Source\\Studi\\inp.txt","C:\\Users\\AlNat\\Source\\Studi\\out1.txt");
 
-    }
-
-
-    private void Crypt (String inputFilename, String outputFilename) throws IOException {
-
-        // Читаем
-
-        file = Files.readAllLines(Paths.get(inputFilename), StandardCharsets.UTF_8); // Прочитали весь файл
-
-        String[] tokensInFile; // Массив строковых токенов
-        for (String st: file) {
-
-        }
-
-        // Конвертим
-
-
-        // Пишем
-
+        rw.Decrypt("C:\\Users\\AlNat\\Source\\Studi\\out1.txt","C:\\Users\\AlNat\\Source\\Studi\\out2.txt");
 
     }
 
-
-    private void Decrypt (String inputFilename, String outputFilename)  throws IOException {
-
-        // Читаем
-
-        file = Files.readAllLines(Paths.get(inputFilename), StandardCharsets.UTF_8); // Прочитали весь файл
-
-        String[] tokensInFile; // Массив строковых токенов
-        for (String st: file) {
-            tokensInFile = st.split("|"); // Расрпарсили строки, по правилу через regex
-            // Теперь в tokensInFile лежут куча текстовых токенов для конкретной строки
-        }
-
-        // Конвертим
-
-
-        // Пишем
-
-
-    }
 
 
 }

@@ -53,135 +53,214 @@
 
 */
 
-public class Morze {
+class Morze {
 
     // Вначале думал хранить мапу из символов и морзе, но вариант не подошел. Так что делаю в лоб
 
-    public String GetMorze (String symbol) {
+    /**
+     * Function get sybmol and return his morze-code
+     * @param symbol - symbol to convert
+     * @return String of morze-code
+     */
+    String GetMorze (char symbol) {
         String answer = "";
 
-        switch (symbol.charAt(0)) {
-            case 'а':
+        switch (symbol) {
             case 'А':
                 answer = ".-";
                 break;
+            case 'а':
+                answer = ".-";
+                break;
             case 'б':
+                answer = "-...";
+                break;
             case 'Б':
                 answer = "-...";
                 break;
             case 'в':
+                answer = ".--";
+                break;
             case 'В':
                 answer = ".--";
                 break;
             case 'г':
+                answer = "--.";
+                break;
             case 'Г':
                 answer = "--.";
                 break;
             case 'д':
+                answer = "-..";
+                break;
             case 'Д':
                 answer = "-..";
                 break;
             case 'е':
+                answer = ".";
+                break;
             case 'Е':
+                answer = ".";
+                break;
             case 'ё':
+                answer = ".";
+                break;
             case 'Ё':
                 answer = ".";
                 break;
             case 'ж':
+                answer = "...-";
+                break;
             case 'Ж':
                 answer = "...-";
                 break;
             case 'з':
+                answer = "--..";
+                break;
             case 'З':
                 answer = "--..";
                 break;
             case 'и':
+                answer = "..";
+                break;
             case 'И':
                 answer = "..";
                 break;
+            case 'й':
+                answer = "..";
+                break;
+            case 'Й':
+                answer = "..";
+                break;
             case 'к':
+                answer = "-.-";
+                break;
             case 'К':
                 answer = "-.-";
                 break;
             case 'л':
+                answer = ".-..";
+                break;
             case 'Л':
                 answer = ".-..";
                 break;
             case 'м':
+                answer = "--";
+                break;
             case 'М':
                 answer = "--";
                 break;
             case 'н':
+                answer = "-.";
+                break;
             case 'Н':
                 answer = "-.";
                 break;
             case 'о':
+                answer = "---";
+                break;
             case 'О':
                 answer = "---";
                 break;
             case 'п':
+                answer = ".--.";
+                break;
             case 'П':
                 answer = ".--.";
                 break;
             case 'р':
+                answer = ".-.";
+                break;
             case 'Р':
                 answer = ".-.";
                 break;
             case 'с':
+                answer = "...";
+                break;
             case 'С':
                 answer = "...";
                 break;
             case 'т':
+                answer = "-";
+                break;
             case 'Т':
                 answer = "-";
                 break;
             case 'у':
+                answer = "..-";
+                break;
             case 'У':
                 answer = "..-";
                 break;
             case 'ф':
+                answer = "..-.";
+                break;
             case 'Ф':
                 answer = "..-.";
                 break;
             case 'х':
+                answer = "....";
+                break;
             case 'Х':
                 answer = "....";
                 break;
             case 'ц':
+                answer = "-.-.";
+                break;
             case 'Ц':
                 answer = "-.-.";
                 break;
             case 'ч':
+                answer = "---.";
+                break;
             case 'Ч':
                 answer = "---.";
                 break;
             case 'ш':
+                answer = "----";
+                break;
             case 'Ш':
                 answer = "----";
                 break;
             case 'щ':
+                answer = "--.-";
+                break;
             case 'Щ':
                 answer = "--.-";
                 break;
             case 'ы':
+                answer = "-.--";
+                break;
             case 'Ы':
                 answer = "-.--";
                 break;
             case 'ь':
+                answer = "-..-";
+                break;
             case 'Ь':
+                answer = "-..-";
+                break;
             case 'ъ':
+                answer = "-..-";
+                break;
             case 'Ъ':
                 answer = "-..-";
                 break;
             case 'э':
+                answer = "..-..";
+                break;
             case 'Э':
                 answer = "..-..";
                 break;
             case 'ю':
+                answer = "..--";
+                break;
             case 'Ю':
                 answer = "..--";
                 break;
             case 'я':
+                answer = ".-.-";
+                break;
             case 'Я':
                 answer = ".-.-";
                 break;
@@ -225,6 +304,8 @@ public class Morze {
                 answer = "-.-.-.";
                 break;
             case '(':
+                answer = "-.--.-";
+                break;
             case ')':
                 answer = "-.--.-";
                 break;
@@ -254,7 +335,12 @@ public class Morze {
         return answer;
     }
 
-    public char GetSymbol (String Morze) {
+    /**
+     * Function get code and return reprezentive symbol
+     * @param Morze String of code
+     * @return char of symbol
+     */
+    char GetSymbol (String Morze) {
 
         char answer;
 
