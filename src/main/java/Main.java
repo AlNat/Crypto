@@ -1,8 +1,3 @@
-/**
- * Created by @author AlNat on 10.09.2016.
- * Licensed by Apache License, Version 2.0
- */
-
 import java.io.IOException;
 
 /*
@@ -17,13 +12,15 @@ import java.io.IOException;
 
 */
 
+/**
+ * Created by @author AlNat on 10.09.2016.
+ * Licensed by Apache License, Version 2.0
+ */
 public class Main {
 
     public static void main (String[] args) throws IOException {
 
-        // Todo - Работа с консолью на прием данных
-
-        // TODO Комментариев добавить!
+        // TODO - Работа с консолью на прием путей
 
         RW rw = new RW();
 

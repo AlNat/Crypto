@@ -31,4 +31,10 @@ public class MorzeTest {
         Assert.assertEquals ('Н', morze.GetSymbol("-."));
     }
 
+    @Test(timeOut = 100)
+    public void TestNullSymbol() throws Exception {
+        morze = new Morze();
+        Assert.assertEquals ("", morze.GetMorze('J') );
+    }
+
 }

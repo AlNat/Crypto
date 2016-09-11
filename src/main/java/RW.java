@@ -5,7 +5,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,13 +19,22 @@ class RW {
     private List<String> readFile; // Наш файл с текстом
     private List<String> writeFile; // Файл для записи
 
+    /**
+     *  Конструктор - инициализируем массивы под входные файлы
+     */
     RW () {
         readFile = new LinkedList<>();
         writeFile = new LinkedList<>();
     }
 
+    /**
+     * Function crypting the UTF-8 text
+     * @param inputFilename - file path what to crypt
+     * @param outputFilename - file path where crypting
+     */
     void Crypt (String inputFilename, String outputFilename) throws IOException {
 
+        // Очистили файлы
         writeFile.clear();
         readFile.clear();
         Morze morze = new Morze();
@@ -34,24 +42,29 @@ class RW {
         // Читаем
         readFile = Files.readAllLines(Paths.get(inputFilename), StandardCharsets.UTF_8); // Прочитали весь файл
 
-        String[] morezes = new String[readFile.toString().length()]; // Массив строковых токенов
-        int i = 0;
-
         // Конвертим
-        for (char m: readFile.toString().toCharArray()) { //
-            morezes[i] = morze.GetMorze(m);
-            morezes[i] += "|";
-            i++;
+        for (String line: readFile) { // Прошли по всем линиям файла
+
+            String out = null;
+
+            for (int t = 0; t < line.length(); t++) { // Прошли по всем сиволам в строке
+                out += morze.GetMorze(line.charAt(t)) + "|"; // Получили код оре для кадого символа и добавили разделитель
+            }
+
+            Collections.addAll(writeFile, out); // Закинули всю строку с символами морзе и разделителями в файл для записи
         }
-        Collections.addAll( writeFile, Arrays.toString(morezes));
 
         // Пишем
         Files.write(Paths.get(outputFilename), writeFile, Charset.forName("UTF-8"));
 
-
     }
 
 
+    /**
+     * Funtion decrypt text
+     * @param inputFilename to decrypt
+     * @param outputFilename where to decrypt
+     */
     void Decrypt (String inputFilename, String outputFilename) throws IOException {
 
         writeFile.clear();
@@ -61,23 +74,18 @@ class RW {
         // Читаем
         readFile = Files.readAllLines(Paths.get(inputFilename), StandardCharsets.UTF_8); // Прочитали весь файл
 
-        //TODO Доделать конвертацию
+        // Конвертим
+        for (String line: readFile) { // Прошли по всем строкам
 
-        for (String line: readFile) {
+            String[] morezes = line.split("\\|"); // Разделеи строку на массив строк через |
 
-            String[] morezes = line.split("\\|"); // Расрпарсили строки, по правилу через regex
-
-            // Конвертим
-            //String i = line.replace("|", "");
-            char[] de = new char[morezes.length];
-            for (int t = 0; t < morezes.length; t++) {
-                //de[t] = String.valueOf(morze.GetSymbol(morezes[t]));
-                de[t] = morze.GetSymbol(morezes[t]);
+            char[] words = new char[morezes.length]; // Массив для символов соотвествующих кодам морзе
+            for (int t = 0; t < morezes.length; t++) { // Прошли все коды морзе в строке
+                words[t] = morze.GetSymbol(morezes[t]); // Получили символы этих кодов
             }
 
-            Collections.addAll(writeFile, String.valueOf(de) ); // Конвертим
+            Collections.addAll(writeFile, String.valueOf(words) ); // И добавили их в файл для записи
         }
-
 
         // Пишем
         Files.write(Paths.get(outputFilename), writeFile, Charset.forName("UTF-8"));

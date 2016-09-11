@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -160,16 +159,21 @@ class Morze {
     }
 
 
-    // Вначале думал хранить мапу из символов и морзе, но вариант не подошел. Так что делаю в лоб
-
     /**
      * Function get sybmol and return his morze-code
      * @param symbol - symbol to convert
-     * @return String of morze-code
+     * @return String of morze-code or nothing string if this symbol not found
      */
     String GetMorze (char symbol) {
 
-        return morze.get(symbol);
+        String answer = morze.get(symbol);
+
+        if (answer == null) {
+            return ""; // Код ошибки
+        } else {
+            return answer;
+        }
+
     }
 
     /**
