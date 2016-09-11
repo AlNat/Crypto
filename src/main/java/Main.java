@@ -21,6 +21,7 @@ public class Main {
     public static void main (String[] args) throws IOException {
 
         // TODO - Работа с консолью на прием путей
+        // TODO - Баг с первым null -первые символы в файле нечитаемы
 
         RW rw = new RW();
 
