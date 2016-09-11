@@ -27,8 +27,8 @@ public class MorzeTest {
     @Test(timeOut = 100)
     public void TestGetSymbol() throws Exception {
         morze = new Morze();
-        Assert.assertEquals ('a', morze.GetSymbol(".-") );
-        Assert.assertEquals ('н', morze.GetSymbol("-."));
+        Assert.assertEquals ('А', morze.GetSymbol(".-") );
+        Assert.assertEquals ('Н', morze.GetSymbol("-."));
     }
 
 }
