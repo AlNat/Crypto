@@ -23,6 +23,8 @@ public class Main {
 
         // Todo - Работа с консолью на прием данных
 
+        // TODO Комментариев добавить!
+
         RW rw = new RW();
 
         rw.Crypt ("C:\\Users\\AlNat\\Source\\Studi\\inp.txt","C:\\Users\\AlNat\\Source\\Studi\\out1.txt");

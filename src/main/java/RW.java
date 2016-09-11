@@ -37,6 +37,8 @@ class RW {
         int i = 0;
 
         // Конвертим
+
+        //TODO Доделать конвертацию
         for (char m: readFile.toString().toCharArray()) { //
             morezes[i] = morze.GetMorze(m);
             morezes[i] += "|";
