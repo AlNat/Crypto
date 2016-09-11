@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,14 +38,12 @@ class RW {
         int i = 0;
 
         // Конвертим
-
-        //TODO Доделать конвертацию
         for (char m: readFile.toString().toCharArray()) { //
             morezes[i] = morze.GetMorze(m);
             morezes[i] += "|";
             i++;
         }
-        Collections.addAll(writeFile, morezes);
+        Collections.addAll( writeFile, Arrays.toString(morezes));
 
         // Пишем
         Files.write(Paths.get(outputFilename), writeFile, Charset.forName("UTF-8"));
@@ -62,20 +61,23 @@ class RW {
         // Читаем
         readFile = Files.readAllLines(Paths.get(inputFilename), StandardCharsets.UTF_8); // Прочитали весь файл
 
-        String[] morezes = new String[readFile.size()]; // Массив строковых токенов
-        String[] de = new String[readFile.size()];
-        int t = 0;
+        //TODO Доделать конвертацию
 
-        for (String st: readFile) {
-            morezes = st.split("|"); // Расрпарсили строки, по правилу через regex
+        for (String line: readFile) {
+
+            String[] morezes = line.split("\\|"); // Расрпарсили строки, по правилу через regex
 
             // Конвертим
-            String i = st.replace("|", "");
-            de[t] = String.valueOf( morze.GetSymbol(i) );
-            t++;
+            //String i = line.replace("|", "");
+            char[] de = new char[morezes.length];
+            for (int t = 0; t < morezes.length; t++) {
+                //de[t] = String.valueOf(morze.GetSymbol(morezes[t]));
+                de[t] = morze.GetSymbol(morezes[t]);
+            }
+
+            Collections.addAll(writeFile, String.valueOf(de) ); // Конвертим
         }
 
-        Collections.addAll(writeFile, de); // Конвертим
 
         // Пишем
         Files.write(Paths.get(outputFilename), writeFile, Charset.forName("UTF-8"));
