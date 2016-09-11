@@ -53,7 +53,6 @@ class RW {
 
     void Decrypt (String inputFilename, String outputFilename) throws IOException {
 
-
         writeFile.clear();
         readFile.clear();
         Morze morze = new Morze();
@@ -61,21 +60,20 @@ class RW {
         // Читаем
         readFile = Files.readAllLines(Paths.get(inputFilename), StandardCharsets.UTF_8); // Прочитали весь файл
 
-        String[] morezes = new String[readFile.toString().length()]; // Массив строковых токенов
-        for (String st: readFile) {
-            morezes = st.split("|"); // Расрпарсили строки, по правилу через regex
-            // Теперь в tokensInFile лежут куча текстовых токенов для конкретной строки
-        }
-
-        String[] de = new String[morezes.toString().length()];
+        String[] morezes = new String[readFile.size()]; // Массив строковых токенов
+        String[] de = new String[readFile.size()];
         int t = 0;
 
-        // Конвертим
-        for (String m: morezes) {
-            de[t] = String.valueOf( morze.GetSymbol(m) );
+        for (String st: readFile) {
+            morezes = st.split("|"); // Расрпарсили строки, по правилу через regex
+
+            // Конвертим
+            String i = st.replace("|", "");
+            de[t] = String.valueOf( morze.GetSymbol(i) );
             t++;
         }
-        Collections.addAll(writeFile, de);
+
+        Collections.addAll(writeFile, de); // Конвертим
 
         // Пишем
         Files.write(Paths.get(outputFilename), writeFile, Charset.forName("UTF-8"));
