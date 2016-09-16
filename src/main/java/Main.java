@@ -1,7 +1,6 @@
 import java.io.IOException;
 
 /*
-
     В текстовом файле inp.txt хранится текст, состоящий из русских букв,
     цифр, знаков препинания, пробелов (объем текста не менее 2 кБт). Необходимо
     составить две программы, первая из которых шифрует текст из файла
@@ -9,7 +8,6 @@ import java.io.IOException;
     текст из файла out1.txt и записывает результат в файл out2.txt.
 
     Вариант 3 - Азбука Морзе
-
 */
 
 /**
@@ -20,17 +18,18 @@ public class Main {
 
     public static void main (String[] args) throws IOException {
 
-        // TODO - Работа с консолью на прием путей
-        // TODO - Баг с первым null -первые символы в файле нечитаемы
-
         RW rw = new RW();
 
-        rw.Crypt ("C:\\Users\\AlNat\\Source\\Studi\\inp.txt","C:\\Users\\AlNat\\Source\\Studi\\out1.txt");
+        String path1 = "C:\\Users\\AlNat\\Source\\Studi\\inp.txt"; //args[0];
+        String path2 = "C:\\Users\\AlNat\\Source\\Studi\\out1.txt"; //args[1];
+        String path3 = "C:\\Users\\AlNat\\Source\\Studi\\out2.txt"; //args[2];
 
-        rw.Decrypt("C:\\Users\\AlNat\\Source\\Studi\\out1.txt","C:\\Users\\AlNat\\Source\\Studi\\out2.txt");
+
+        rw.Crypt (path1, path2);
+
+        rw.Decrypt(path2, path3);
 
     }
-
 
 
 }

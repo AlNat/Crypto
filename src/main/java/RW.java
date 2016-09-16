@@ -45,9 +45,9 @@ class RW {
         // Конвертим
         for (String line: readFile) { // Прошли по всем линиям файла
 
-            String out = null;
+            String out = "";
 
-            for (int t = 0; t < line.length(); t++) { // Прошли по всем сиволам в строке
+            for (int t = 1; t < line.length(); t++) { // Прошли по всем сиволам в строке
                 out += morze.GetMorze(line.charAt(t)) + "|"; // Получили код оре для кадого символа и добавили разделитель
             }
 
