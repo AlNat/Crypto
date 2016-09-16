@@ -24,7 +24,6 @@ public class Main {
         String path2 = "C:\\Users\\AlNat\\Source\\Studi\\out1.txt"; //args[1];
         String path3 = "C:\\Users\\AlNat\\Source\\Studi\\out2.txt"; //args[2];
 
-
         rw.Crypt (path1, path2);
 
         rw.Decrypt(path2, path3);

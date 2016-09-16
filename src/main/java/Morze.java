@@ -1,6 +1,6 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 /**
  * Created by @author AlNat on 10.09.2016.
@@ -65,7 +65,7 @@ class Morze {
      * Function initilizing the map of morze symbols
      */
     Morze () {
-        morze = new TreeMap<>();
+        morze = new HashMap<>();
 
         morze.put('а', ".-");
         morze.put('А', ".-");
@@ -79,8 +79,8 @@ class Morze {
         morze.put('Д', "-..");
         morze.put('е', ".");
         morze.put('Е', ".");
-        morze.put('ё', ".");
-        morze.put('Ё', ".");
+        //morze.put('ё', ".");
+        //morze.put('Ё', ".");
         morze.put('ж', "...-");
         morze.put('Ж', "...-");
         morze.put('з', "--..");
@@ -183,7 +183,7 @@ class Morze {
      */
     char GetSymbol (String Morze) {
 
-        Set<Map.Entry<Character,String>> entrySet = morze .entrySet();
+        Set<Map.Entry<Character,String>> entrySet = morze.entrySet();
 
         for (Map.Entry<Character,String> pair : entrySet) {
             if ( Morze.equals( pair.getValue() ) ) {

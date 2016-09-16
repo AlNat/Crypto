@@ -41,15 +41,19 @@ class RW {
 
         // Читаем
         readFile = Files.readAllLines(Paths.get(inputFilename), StandardCharsets.UTF_8); // Прочитали весь файл
+        boolean flag = true;
 
         // Конвертим
         for (String line: readFile) { // Прошли по всем линиям файла
 
             String out = "";
 
-            for (int t = 1; t < line.length(); t++) { // Прошли по всем сиволам в строке
+            for (int t = 0; t < line.length(); t++) { // Прошли по всем сиволам в строке
+                if (flag) t++;
                 out += morze.GetMorze(line.charAt(t)) + "|"; // Получили код оре для кадого символа и добавили разделитель
+                flag = false;
             }
+
 
             Collections.addAll(writeFile, out); // Закинули всю строку с символами морзе и разделителями в файл для записи
         }
