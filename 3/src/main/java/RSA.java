@@ -10,17 +10,22 @@ import java.security.SecureRandom;
  * Simple RSA public key encryption algorithm implementation.
  */
 public class RSA {
+
     private BigInteger n, d, e;
 
     private int bitlen = 1024;
 
-    /** Create an instance that can encrypt using someone elses public key. */
+    /**
+     * Create an instance that can encrypt using someone elses public key.
+    */
     public RSA(BigInteger newn, BigInteger newe) {
         n = newn;
         e = newe;
     }
 
-    /** Create an instance that can both encrypt and decrypt. */
+    /**
+     * Create an instance that can both encrypt and decrypt.
+    */
     public RSA(int bits) {
         bitlen = bits;
         SecureRandom r = new SecureRandom();
