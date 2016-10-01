@@ -1,11 +1,14 @@
 import java.io.IOException;
 
+import java.math.BigInteger;
+
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import java.util.*;
-
+import java.util.LinkedList;
+import java.util.List;
 /**
  * Created by @author AlNat on 11.09.2016.
  * Licensed by Apache License, Version 2.0
@@ -13,68 +16,114 @@ import java.util.*;
 class RW {
     // Класс для работы с чтением/записью
 
-    private List<String> writeFile; // Файл для записи
+    private RSA rsa;
+
+    private List<String> sourceFile; // Файл с изначальным текстом
+    private List<BigInteger> writeCryptFile; // Файл для записи шифрованного теста
+    private List<String> writeEncryptFile; // Файл для записи расшифрованного текста
 
     /**
      *  Конструктор - инициализируем массивы под входные файлы
      */
     RW () {
-        writeFile = new LinkedList<>();
+        sourceFile = new LinkedList<>();
+        writeCryptFile = new LinkedList<>();
+        writeEncryptFile = new LinkedList<>();
+
+        rsa = new RSA(1024);
     }
+
+    /*
+        RSA rsa = new RSA(1024);
+
+        String text = "Source text to crypt"; // args[0]
+        System.out.println("Исходный текст: " + text);
+
+
+        BigInteger sourceText = new BigInteger(text.getBytes()); // Привели строку к массиву битов -> одному большому числу
+        BigInteger cryptText = rsa.encrypt(sourceText); // Зашифровали текст
+        System.out.println("Зашифрованный тест: " + cryptText);
+
+
+        BigInteger decryptText = rsa.decrypt(cryptText); // Дешифровали текст
+        String text2 = new String(decryptText.toByteArray()); // Привели его из числа к строке
+        System.out.println("Расшифрованный текст: " + text2);
+
+
+     */
+
 
     /**
-     * Funtion write into file all simple numbers < size
-     * @param inputFilename filename
-     * @param size count of elements
+     * Function crypting the UTF-8 text by RSA
+     * @param inputFilename - file path what to crypt
+     * @param outputFilename - file path where crypting
      */
-    void Calc (String inputFilename, int size) throws IOException {
+    void Crypt (String inputFilename, String outputFilename) throws IOException {
 
-        writeFile.clear();
+        // Очистили файлы
+        sourceFile.clear();
+        writeCryptFile.clear();
 
-        boolean numbers[] = new boolean[size + 1]; // Массив, если число простое - то значение в numbers[число] true
-        Arrays.fill(numbers, true); // Положили во все ячейки true
+        // Читаем
+        sourceFile = Files.readAllLines(Paths.get(inputFilename), StandardCharsets.UTF_8); // Прочитали весь файл
+        boolean flag = true;
 
-        Eratosfen (numbers);
+        // Конвертим
+        /*
+        for (String line: readFile) { // Прошли по всем линиям файла
 
-        for (int t = 0; t <= size; t++ ) { // Прошли по массиву
-            if (numbers[t]) { // Если это число простое - пишем его
-                writeFile.add(String.valueOf(t));
+            String out = "";
+
+            for (int t = 0; t < line.length(); t++) { // Прошли по всем сиволам в строке
+                if (flag) t++;
+                out += line.charAt(t)) + "|"; // Получили код оре для кадого символа и добавили разделитель
+                flag = false;
             }
-        }
 
-        Files.write(Paths.get(inputFilename), writeFile, Charset.forName("UTF-8")); // Пишем
+
+            Collections.addAll(sourceFile, out); // Закинули всю строку с символами морзе и разделителями в файл для записи
+        }
+        */
+
+        // Пишем
+        Files.write(Paths.get(outputFilename), writeCryptFile, Charset.forName("UTF-8"));
 
     }
+
 
     /**
-     * Алгоритм:
-     * Для нахождения всех простых чисел не больше заданного числа n, следуя методу Эратосфена, нужно выполнить следующие шаги:
-     * 1) Выписать подряд все целые числа от двух до n (2, 3, 4, …, n).
-     * 2) Пусть переменная p изначально равна двум — первому простому числу.
-     * 3) Зачеркнуть в списке числа от 2p до n считая шагами по p (это будут числа кратные p: 2p, 3p, 4p, …).
-     * 4) Найти первое незачёркнутое число в списке, большее чем p, и присвоить значению переменной p это число.
-     * 5) Повторять шаги 3 и 4, пока возможно.
-     *
-     * Теперь все незачёркнутые числа в списке — это все простые числа от 2 до n.
-     * @param numbers массив чисел
+     * Funtion decrypt text by RSA
+     * @param inputFilename to decrypt
+     * @param outputFilename where to decrypt
      */
-    private void Eratosfen (boolean numbers[]) {
+    void Encrypt (String inputFilename, String outputFilename) throws IOException {
 
-        numbers[0] = false;
-        numbers[1] = false;
+        writeCryptFile.clear();
+        writeEncryptFile.clear();
 
-        for (int t = 2; t < numbers.length; t++) { // Прошли по всему массиву
+        // Читаем
+        writeCryptFile = Files.readAllLines(Paths.get(inputFilename), StandardCharsets.UTF_8); // Прочитали весь файл
 
-            if (numbers[t]) { // Если это число (пока) простое
-                for (int t2 = t; t * t2 < numbers.length; t2++) { // То находим числа кратные ему, начиная с t
-                    numbers[t * t2] = false; // И говорим, что они не простые
-                }
+        // Конвертим
+        /*
+        for (String line: readFile) { // Прошли по всем строкам
+
+            String[] morezes = line.split("\\|"); // Разделеи строку на массив строк через |
+
+            char[] words = new char[morezes.length]; // Массив для символов соотвествующих кодам морзе
+            for (int t = 0; t < morezes.length; t++) { // Прошли все коды морзе в строке
+                words[t] = morze.GetSymbol(morezes[t]); // Получили символы этих кодов
             }
 
+            Collections.addAll(writeFile, String.valueOf(words) ); // И добавили их в файл для записи
         }
+        */
 
+        // Пишем
+        Files.write(Paths.get(outputFilename), writeEncryptFile, Charset.forName("UTF-8"));
 
     }
+
 
 
 }
