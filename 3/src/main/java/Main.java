@@ -11,19 +11,15 @@ public class Main {
         String path2 = "C:\\Users\\AlNat\\Source\\Studi\\out.txt"; //args[1];
         String path3 = "C:\\Users\\AlNat\\Source\\Studi\\out1.txt"; //args[2];
 
-        // Вывод имеено такой, потому что мы при записи в файл преобразуем в массив битов - соотвествеенно у нас пишуться элементы массива
-
         try {
             rw.Crypt(path1, path2);
             rw.Encrypt(path2, path3);
-
         } catch (IOException e) {
             //e.printStackTrace();
         }
 
 
 
-        /*
         // Пример работы без файлов
 
         RSA rsa = new RSA(1024);
@@ -39,8 +35,6 @@ public class Main {
         BigInteger decryptText = rsa.decrypt(cryptText); // Дешифровали текст
         String text2 = new String(decryptText.toByteArray()); // Привели его из числа к строке
         System.out.println("Расшифрованный текст: " + text2);
-        */
-
 
     }
 

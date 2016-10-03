@@ -3,6 +3,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +18,6 @@ class RW {
     private RSA rsa;
 
     private List<String> sourceFile; // Файл с изначальным текстом
-    private BigInteger writeCryptFile; // Файл для записи шифрованного теста
 
     /**
      *  Конструктор - инициализируем массивы под входные файлы
@@ -43,18 +43,19 @@ class RW {
         sourceFile = Files.readAllLines(Paths.get(inputFilename), StandardCharsets.UTF_8); // Прочитали весь файл
 
         // Конвертим
-        String text = " ";
 
+        // Переводим текст в одну строку
+        String sourceText = " ";
         for (String s: sourceFile) {
-            text += s;
-            text += "\n";
+            sourceText += s;
+            sourceText += "\n";
         }
 
-        BigInteger sourceText = new BigInteger(text.getBytes()); // Привели строку к массиву битов -> одному большому числу
-        BigInteger cryptText = rsa.encrypt(sourceText); // Зашифровали текст
+        BigInteger intSourceText = new BigInteger(sourceText.getBytes()); // Привели строку к массиву битов -> одному большому числу
+        BigInteger cryptText = rsa.encrypt( intSourceText ); // Шифруем
 
         // Пишем
-        Files.write(Paths.get(outputFilename), cryptText.toString().getBytes());
+        Files.write(Paths.get(outputFilename), cryptText.toString().getBytes()); // Пишем его в файл
 
     }
 
@@ -68,14 +69,17 @@ class RW {
 
         // Читаем
         byte[] b = Files.readAllBytes(Paths.get(inputFilename));
-        writeCryptFile = new BigInteger(new String(b));
+        BigInteger cryptText = new BigInteger(new String(b));
 
         // Дешифруем
-        BigInteger decryptText = rsa.decrypt(writeCryptFile); // Дешифровали текст
-        String text2 = new String(decryptText.toByteArray()); // Привели его из числа к строк
+        BigInteger decryptText = rsa.decrypt(cryptText); // Дешифровали текст
+        String text = new String(decryptText.toByteArray()); // Привели его из числа к строк
 
         // Пишем
-        Files.write(Paths.get(outputFilename), text2.getBytes());
+        sourceFile.clear();
+        String[] tmp = text.split("\n");
+        Collections.addAll(sourceFile, tmp);
+        Files.write(Paths.get(outputFilename), sourceFile);
 
     }
 
