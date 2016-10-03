@@ -1,13 +1,9 @@
-/**
- * Created by @author AlNat on 26.09.2016.
- * Licensed by Apache License, Version 2.0
- */
-
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
 /**
- * Simple RSA public key encryption algorithm implementation.
+ * Created by @author AlNat on 26.09.2016.
+ * Licensed by Apache License, Version 2.0
  */
 public class RSA {
 
