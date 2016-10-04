@@ -7,16 +7,13 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
  * Created by @author AlNat on 11.09.2016.
  * Licensed by Apache License, Version 2.0
  */
 class RW {
-    // Класс для работы с чтением/записью
 
     private RSA rsa;
-
     private List<String> sourceFile; // Файл с изначальным текстом
 
     /**
@@ -24,7 +21,6 @@ class RW {
      */
     RW () {
         sourceFile = new LinkedList<>();
-
         rsa = new RSA(1024);
     }
 
@@ -36,11 +32,11 @@ class RW {
      */
     void Crypt (String inputFilename, String outputFilename) throws IOException {
 
-        // Очистили файлы
-        sourceFile.clear();
+        sourceFile.clear(); // Очистили файлы
 
         // Читаем
         sourceFile = Files.readAllLines(Paths.get(inputFilename), StandardCharsets.UTF_8); // Прочитали весь файл
+
 
         // Конвертим
 
@@ -54,8 +50,14 @@ class RW {
         BigInteger intSourceText = new BigInteger(sourceText.getBytes()); // Привели строку к массиву битов -> одному большому числу
         BigInteger cryptText = rsa.encrypt( intSourceText ); // Шифруем
 
+
         // Пишем
         Files.write(Paths.get(outputFilename), cryptText.toString().getBytes()); // Пишем его в файл
+        // Просто так писать BigInteger мы не можем, та что конвертим его в строку, а пишем ее байтовое представление
+        // Расшифровка аналогично
+
+        System.out.println("N = " + rsa.getN());
+        System.out.println("E = " + rsa.getE());
 
     }
 
@@ -67,17 +69,21 @@ class RW {
      */
     void Encrypt (String inputFilename, String outputFilename) throws IOException {
 
+        sourceFile.clear(); // Чистим
+
         // Читаем
         byte[] b = Files.readAllBytes(Paths.get(inputFilename));
-        BigInteger cryptText = new BigInteger(new String(b));
+        BigInteger cryptText = new BigInteger(new String(b)); // См выше
+
 
         // Дешифруем
         BigInteger decryptText = rsa.decrypt(cryptText); // Дешифровали текст
         String text = new String(decryptText.toByteArray()); // Привели его из числа к строк
 
+
         // Пишем
-        sourceFile.clear();
         String[] tmp = text.split("\n");
+        tmp[0] = tmp[0].substring(1); // Убрали пробел в начале файла
         Collections.addAll(sourceFile, tmp);
         Files.write(Paths.get(outputFilename), sourceFile);
 

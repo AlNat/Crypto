@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.math.BigInteger;
 
 public class Main {
 
@@ -15,13 +14,12 @@ public class Main {
             rw.Crypt(path1, path2);
             rw.Encrypt(path2, path3);
         } catch (IOException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
 
 
-
+        /*
         // Пример работы без файлов
-
         RSA rsa = new RSA(1024);
 
         String text = "Source text to crypt\n Another text \n Another texts"; // args[0]
@@ -35,6 +33,7 @@ public class Main {
         BigInteger decryptText = rsa.decrypt(cryptText); // Дешифровали текст
         String text2 = new String(decryptText.toByteArray()); // Привели его из числа к строке
         System.out.println("Расшифрованный текст: " + text2);
+        */
 
     }
 

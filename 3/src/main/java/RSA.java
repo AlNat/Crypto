@@ -12,9 +12,9 @@ class RSA {
     /**
      * Создаем с уже имеющимеся n и e
      */
-    RSA(BigInteger newn, BigInteger newe) {
-        n = newn;
-        e = newe;
+    RSA(BigInteger N, BigInteger E) {
+        n = N;
+        e = E;
     }
 
     /**
@@ -27,13 +27,10 @@ class RSA {
         BigInteger p = new BigInteger(bits / 2, 100, r);
         BigInteger q = new BigInteger(bits / 2, 100, r);
 
-        // Делаем остальное по формулам
+        // Делаем остальные числа по формулам
         n = p.multiply(q);
-        BigInteger m = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE));
-        e = new BigInteger("3");
-        while (m.gcd(e).intValue() > 1) {
-            e = e.add(new BigInteger("2"));
-        }
+        BigInteger m = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE)); // Fi от n
+        e = new BigInteger("27644437"); // Либо любое другое простое рандомное число
         d = e.modInverse(m);
     }
 
