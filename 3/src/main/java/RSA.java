@@ -2,7 +2,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 
 /**
- * Created by @author AlNat on 26.09.2016.
+ * Created by @author AlNat on 01.10.2016.
  * Licensed by Apache License, Version 2.0
  */
 class RSA {
@@ -28,10 +28,10 @@ class RSA {
         BigInteger q = new BigInteger(bits / 2, 100, r);
 
         // Делаем остальные числа по формулам
-        n = p.multiply(q);
-        BigInteger m = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE)); // Fi от n
-        e = new BigInteger("27644437"); // Либо любое другое простое рандомное число
-        d = e.modInverse(m);
+        n = p.multiply(q); // N = P * Q
+        BigInteger fi = (p.subtract(BigInteger.ONE)).multiply(q.subtract(BigInteger.ONE)); // Fi(n) - функция Эйлера = (p - 1) * (q - 1)
+        e = new BigInteger("27644437"); // Либо любое другое простое число
+        d = e.modInverse(fi); // D обратно мультипликативно E по Fi(n) =>  D * E = 1 (mod Fi(n))
     }
 
     /**

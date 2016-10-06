@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by @author AlNat on 11.09.2016.
+ * Created by @author AlNat on 01.10.2016.
  * Licensed by Apache License, Version 2.0
  */
 class RW {
@@ -17,13 +17,12 @@ class RW {
     private List<String> sourceFile; // Файл с изначальным текстом
 
     /**
-     *  Конструктор - инициализируем массивы под входные файлы
+     *  Конструктор - инициализируем массив под входные файлы и сам экземпляр RSA
      */
     RW () {
         sourceFile = new LinkedList<>();
         rsa = new RSA(1024);
     }
-
 
     /**
      * Function crypt the text by RSA
@@ -53,9 +52,10 @@ class RW {
 
         // Пишем
         Files.write(Paths.get(outputFilename), cryptText.toString().getBytes()); // Пишем его в файл
-        // Просто так писать BigInteger мы не можем, та что конвертим его в строку, а пишем ее байтовое представление
-        // Расшифровка аналогично
+        // Просто так писать BigInteger мы не можем, так что конвертим его в строку, а пишем ее байтовое представление
+        // Расшифровка аналогично в обратном порядке
 
+        // Выводим на экран N и E, можем писать в файл, но не принципиально
         System.out.println("N = " + rsa.getN());
         System.out.println("E = " + rsa.getE());
 
