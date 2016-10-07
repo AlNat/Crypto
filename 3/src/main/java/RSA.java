@@ -23,9 +23,9 @@ class RSA {
     RSA(int bits) {
 
         // Создаем p и q рандомно, используя длинну в битах
-        SecureRandom r = new SecureRandom();
-        BigInteger p = new BigInteger(bits / 2, 100, r);
-        BigInteger q = new BigInteger(bits / 2, 100, r);
+        SecureRandom r = new SecureRandom(); // Секретный рандом
+        BigInteger p = new BigInteger(bits / 2, 100, r); // Длинна - bits/2
+        BigInteger q = new BigInteger(bits / 2, 100, r); // r - random
 
         // Делаем остальные числа по формулам
         n = p.multiply(q); // N = P * Q
@@ -38,6 +38,7 @@ class RSA {
      * Шифрует сообщение
      */
     BigInteger encrypt(BigInteger message) {
+        // modPow => massage^e mod n
         return message.modPow(e, n);
     }
 
