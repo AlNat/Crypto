@@ -48,12 +48,12 @@ class RW {
             sourceText += "\n";
         }
 
-        BigInteger intSourceText = new BigInteger(sourceText.getBytes()); // Привели строку к массиву битов -> одному большому числу
+        BigInteger intSourceText = new BigInteger(sourceText.getBytes(StandardCharsets.UTF_8)); // Привели строку к массиву битов -> одному большому числу
         BigInteger cryptText = rsa.encrypt( intSourceText ); // Шифруем
 
 
         // Пишем
-        Files.write(Paths.get(outputFilename), cryptText.toString().getBytes()); // Пишем его в файл
+        Files.write(Paths.get(outputFilename), cryptText.toString().getBytes(StandardCharsets.UTF_8)); // Пишем его в файл
         // Просто так писать BigInteger мы не можем, так что конвертим его в строку, а пишем ее байтовое представление
         // Расшифровка аналогично в обратном порядке
 
@@ -87,7 +87,7 @@ class RW {
         String[] tmp = text.split("\n");
         tmp[0] = tmp[0].substring(1); // Убрали пробел в начале файла
         Collections.addAll(sourceFile, tmp);
-        Files.write(Paths.get(outputFilename), sourceFile);
+        Files.write(Paths.get(outputFilename), sourceFile, StandardCharsets.UTF_8);
 
     }
 
